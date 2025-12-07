@@ -69,6 +69,7 @@ let habitListEl,
   motivationAuthorEl,
   motivationNoteEl,
   historyChartEl;
+  coachMessageEl;
 
 /* ---------- MOTIVATION ---------- */
 function getTodayQuoteIndex() {
@@ -156,6 +157,39 @@ function computeStreaks() {
   return { current, best };
 }
 
+/* ---------- COACH MESSAGE ---------- */
+
+function updateCoachMessage(percent) {
+  if (!coachMessageEl) return;
+
+  const now = new Date();
+  const hour = now.getHours();
+  let msg = "";
+
+  if (percent === 0) {
+    // Time-based message when nothing is done yet
+    if (hour >= 4 && hour < 11) {
+      msg = "Good morning 🌞 Let’s start strong — win your first habit now.";
+    } else if (hour >= 11 && hour < 17) {
+      msg = "It’s a long day ahead 💪 Pick one habit and knock it out.";
+    } else if (hour >= 17 && hour < 21) {
+      msg = "Evening comeback mode 🔥 You’re one habit away from momentum.";
+    } else {
+      msg = "Slow days happen 🌙 Even one habit before sleep is a win.";
+    }
+  } else if (percent > 0 && percent < 50) {
+    msg = "Nice start 🔥 Two more habits will push you into momentum.";
+  } else if (percent >= 50 && percent < 80) {
+    msg = "You’re over halfway 😎 Keep the rhythm alive.";
+  } else if (percent >= 80 && percent < 100) {
+    msg = "You’re right there 👀 One or two habits to make it a perfect day.";
+  } else if (percent === 100) {
+    msg = "Perfect day achieved ✨ You kept your promise to yourself.";
+  }
+
+  coachMessageEl.textContent = msg;
+}
+
 function updateProgress() {
   const pct = computePercent(todayKey);
   const done = HABITS.filter((h) => habitData[todayKey]?.[h.id]).length;
@@ -182,6 +216,7 @@ function updateProgress() {
   currentStreakEl.textContent = `${current} day${current === 1 ? "" : "s"}`;
   bestStreakEl.textContent = `${best} day${best === 1 ? "" : "s"}`;
 
+  updateCoachMessage(pct);
   renderHistoryChart();
 }
 
@@ -221,7 +256,7 @@ function renderHistoryChart() {
 
 /* ---------- INIT ---------- */
 function init() {
-  habitListEl = $("habitList");
+   habitListEl = $("habitList");
   progressCircleEl = $("progressCircle");
   progressPercentEl = $("progressPercent");
   progressHeadlineEl = $("progressHeadline");
@@ -235,11 +270,13 @@ function init() {
   motivationAuthorEl = $("motivationAuthor");
   motivationNoteEl = $("motivationNote");
   historyChartEl = $("historyChart");
+  coachMessageEl = $("coachMessage");
   $("todayDate").textContent = today.toLocaleDateString("en-US", {
     weekday: "long",
     month: "short",
     day: "numeric",
   });
+
 
   renderMotivation();
   renderHabits();
