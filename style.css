@@ -22,6 +22,36 @@ body {
 
 .header h1 { font-size: 2rem; }
 .subtitle { color: var(--text-dim); margin-top: 2px; }
+/* Coach bar */
+.coach-bar {
+  margin-top: 4px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8, #22d3ee);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #0b1120;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.coach-label {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(15, 23, 42, 0.12);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.coach-message {
+  font-weight: 500;
+}
+
 
 .card {
   background: #020617;
