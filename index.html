@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Habit Tracker v1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>Habit Tracker</h1>
+        <p id="todayDate" class="subtitle"></p>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Today summary -->
+      <section class="card summary-card">
+        <div class="summary-left">
+          <div class="progress-ring-wrapper">
+            <svg width="120" height="120" class="progress-ring">
+              <circle
+                cx="60" cy="60" r="48"
+                class="progress-bg"
+              ></circle>
+              <circle
+                id="progressCircle"
+                cx="60" cy="60" r="48"
+                class="progress-fg"
+                stroke-dasharray="301.6"
+                stroke-dashoffset="301.6"
+              ></circle>
+            </svg>
+            <div class="progress-center">
+              <div id="progressPercent" class="progress-percent">0%</div>
+              <div class="progress-label">Today</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-right">
+          <h2>Today’s Progress</h2>
+          <p id="progressHeadline" class="headline">No habits completed yet.</p>
+          <p id="progressDetail" class="detail">
+            Start by ticking your first habit for today.
+          </p>
+
+          <div class="chips">
+            <span class="chip" id="chipTotal">12 habits</span>
+            <span class="chip" id="chipDone">0 done</span>
+            <span class="chip" id="chipPending">12 pending</span>
+          </div>
+
+          <div class="streak-row">
+            <div>
+              <div class="streak-label">Current streak</div>
+              <div class="streak-value" id="currentStreak">0 days</div>
+            </div>
+            <div>
+              <div class="streak-label">Best streak</div>
+              <div class="streak-value" id="bestStreak">0 days</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Habit list -->
+      <section class="card">
+        <h2>Habits for today</h2>
+        <p class="hint">
+          Tick a habit when you complete it. Everything is saved automatically for today’s date.
+        </p>
+        <div id="habitList" class="habit-list">
+          <!-- Filled by JavaScript -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Data is stored only in your browser (localStorage).</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
