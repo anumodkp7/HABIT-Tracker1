@@ -16,6 +16,27 @@
     </header>
 
     <main class="main">
+            <!-- Motivation of the day -->
+      <section class="card motivation-card">
+        <h2>Motivation of the day</h2>
+        <p class="hint">
+          A small reminder to stay consistent with your habits today.
+        </p>
+        <div class="motivation-quote">
+          <span id="motivationText">Loading quote...</span>
+          <span id="motivationAuthor" class="motivation-author"></span>
+        </div>
+        <label for="motivationNote" class="motivation-note-label">
+          Your intention for today
+        </label>
+        <textarea
+          id="motivationNote"
+          class="motivation-input"
+          rows="3"
+          placeholder="Eg. I will complete at least 80% of my habits today."
+        ></textarea>
+      </section>
+
       <!-- Today summary -->
       <section class="card summary-card">
         <div class="summary-left">
