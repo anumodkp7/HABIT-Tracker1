@@ -186,6 +186,8 @@ function computeStreaks() {
 
 /* ---------- HISTORY CHART (LAST 30 DAYS) ---------- */
 
+/* ---------- HISTORY CHART (LAST 30 DAYS) ---------- */
+
 function renderHistoryChart() {
   if (!historyChartEl) return;
 
@@ -202,11 +204,51 @@ function renderHistoryChart() {
     const key = dateKey(d);
     const pct = computeDayPercent(key);
 
-    // label as "3", "4", "5" (day of month)
-    const dayNum = d.getDate();
-    labels.push(dayNum);
+    // weekday letters: M, T, W, T, F, S, S
+    const weekday = d.toLocaleDateString("en-US", { weekday: "short" }); // Mon, Tue, etc.
+    const letter = weekday[0]; // 'M', 'T', 'W', etc.
+    labels.push(letter);
     percents.push(pct);
   }
+
+  percents.forEach((pct, index) => {
+    const bar = document.createElement("div");
+    bar.className = "history-bar";
+
+    const fill = document.createElement("div");
+    fill.className = "history-bar-fill";
+
+    // height based on percentage (0–100)
+    const safePct = Math.max(0, Math.min(100, pct || 0));
+    fill.style.height = `${safePct}%`;
+
+    // color logic
+    if (safePct >= 80) {
+      // high performance → green
+      fill.style.backgroundColor = "rgba(74, 222, 128, 0.85)"; // green
+    } else if (safePct <= 40) {
+      // low performance → red
+      fill.style.backgroundColor = "rgba(248, 113, 113, 0.9)"; // red
+    } else {
+      // mid range → blue
+      fill.style.backgroundColor = "rgba(56, 189, 248, 0.9)"; // blue
+    }
+
+    const valueLabel = document.createElement("div");
+    valueLabel.className = "history-bar-label-value";
+    valueLabel.textContent = safePct > 0 ? `${safePct}%` : "";
+
+    const dateLabel = document.createElement("div");
+    dateLabel.className = "history-bar-label-date";
+    dateLabel.textContent = labels[index];
+
+    bar.appendChild(fill);
+    bar.appendChild(valueLabel);
+    bar.appendChild(dateLabel);
+    historyChartEl.appendChild(bar);
+  });
+}
+
 
   percents.forEach((pct, index) => {
     const bar = document.createElement("div");
