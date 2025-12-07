@@ -125,6 +125,9 @@ function saveMotivationQuoteState(state) {
 
 let habitData = loadData();
 const todayKey = dateKey(today);
+let motivationNotes = loadMotivationNotes();
+let motivationQuoteState = loadMotivationQuoteState();
+
 
 /* ---------- DOM ELEMENTS ---------- */
 
