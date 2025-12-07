@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Habit Tracker v1</title>
+  <title>Habit Tracker v1.5</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -16,11 +16,12 @@
     </header>
 
     <main class="main">
-            <!-- Motivation of the day -->
+
+      <!-- Motivation of the day -->
       <section class="card motivation-card">
         <h2>Motivation of the day</h2>
         <p class="hint">
-          A small reminder to stay consistent with your habits today.
+          A reminder to help you stay consistent with your habits today.
         </p>
         <div class="motivation-quote">
           <span id="motivationText">Loading quote...</span>
@@ -42,17 +43,11 @@
         <div class="summary-left">
           <div class="progress-ring-wrapper">
             <svg width="120" height="120" class="progress-ring">
-              <circle
-                cx="60" cy="60" r="48"
-                class="progress-bg"
-              ></circle>
-              <circle
-                id="progressCircle"
-                cx="60" cy="60" r="48"
+              <circle cx="60" cy="60" r="48" class="progress-bg"></circle>
+              <circle id="progressCircle" cx="60" cy="60" r="48"
                 class="progress-fg"
                 stroke-dasharray="301.6"
-                stroke-dashoffset="301.6"
-              ></circle>
+                stroke-dashoffset="301.6"></circle>
             </svg>
             <div class="progress-center">
               <div id="progressPercent" class="progress-percent">0%</div>
@@ -60,20 +55,17 @@
             </div>
           </div>
         </div>
-
         <div class="summary-right">
           <h2>Today’s Progress</h2>
           <p id="progressHeadline" class="headline">No habits completed yet.</p>
           <p id="progressDetail" class="detail">
             Start by ticking your first habit for today.
           </p>
-
           <div class="chips">
             <span class="chip" id="chipTotal">12 habits</span>
             <span class="chip" id="chipDone">0 done</span>
             <span class="chip" id="chipPending">12 pending</span>
           </div>
-
           <div class="streak-row">
             <div>
               <div class="streak-label">Current streak</div>
@@ -86,32 +78,27 @@
           </div>
         </div>
       </section>
-  
-      <!-- Habit list -->
+
+      <!-- Habits list -->
       <section class="card">
         <h2>Habits for today</h2>
-        <p class="hint">
-          Tick a habit when you complete it. Everything is saved automatically for today’s date.
-        </p>
-        <div id="habitList" class="habit-list">
-          <!-- Filled by JavaScript -->
-        </div>
+        <p class="hint">Tick habits as you complete them.</p>
+        <div id="habitList" class="habit-list"></div>
       </section>
-      
-       <!-- Progress history -->
+
+      <!-- Last 30 days performance -->
       <section class="card history-card">
         <h2>Last 30 days</h2>
         <p class="hint">
-          Each bar shows your completion % for that day. This helps you see your trend over time.
+          Each bar shows your completion % of habits for that day.
         </p>
-        <div id="historyChart" class="history-chart">
-          <!-- Filled by JavaScript -->
-        </div>
+        <div id="historyChart" class="history-chart"></div>
       </section>
+
     </main>
 
     <footer class="footer">
-      <span>Data is stored only in your browser (localStorage).</span>
+      <span>Data is stored only in your browser.</span>
     </footer>
   </div>
 
