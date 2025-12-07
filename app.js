@@ -20,6 +20,51 @@ const HABITS = [
 ];
 
 const STORAGE_KEY = "habitTracker_v1_data"; // { "YYYY-MM-DD": { habitId: true/false } }
+const MOTIVATION_QUOTES = [
+  {
+    text: "You don’t have to be extreme, just consistent.",
+    author: "Unknown",
+  },
+  {
+    text: "Discipline is choosing what you want most over what you want now.",
+    author: "Unknown",
+  },
+  {
+    text: "Small daily actions compound into big results.",
+    author: "Unknown",
+  },
+  {
+    text: "Win the day by winning your habits.",
+    author: "Unknown",
+  },
+  {
+    text: "Your future is built from what you do today, not someday.",
+    author: "Unknown",
+  },
+  {
+    text: "Missing one day is normal. Missing two creates a new habit.",
+    author: "James Clear (paraphrased)",
+  },
+  {
+    text: "Show up especially on the days you don’t feel like it.",
+    author: "Unknown",
+  },
+  {
+    text: "Tiny wins today beat perfect plans you never start.",
+    author: "Unknown",
+  },
+  {
+    text: "You’re not starting from zero, you’re starting from experience.",
+    author: "Unknown",
+  },
+  {
+    text: "Consistency turns actions into identity: “I am the person who does this.”",
+    author: "Unknown",
+  },
+];
+
+const MOTIVATION_QUOTE_KEY = "habitTracker_v1_quoteState";
+const MOTIVATION_NOTE_KEY = "habitTracker_v1_motivationNotes";
 
 /* ---------- HELPERS ---------- */
 
@@ -51,6 +96,32 @@ const loadData = () => {
 const saveData = (data) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 };
+function loadMotivationNotes() {
+  try {
+    const raw = localStorage.getItem(MOTIVATION_NOTE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveMotivationNotes(notes) {
+  localStorage.setItem(MOTIVATION_NOTE_KEY, JSON.stringify(notes));
+}
+
+function loadMotivationQuoteState() {
+  try {
+    const raw = localStorage.getItem(MOTIVATION_QUOTE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveMotivationQuoteState(state) {
+  localStorage.setItem(MOTIVATION_QUOTE_KEY, JSON.stringify(state));
+}
+
 
 let habitData = loadData();
 const todayKey = dateKey(today);
