@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #020617;
+  --bg-card: #020617;
+  --bg-body: #020617;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.16);
+  --text: #e5e7eb;
+  --text-dim: #9ca3af;
+  --danger: #f97373;
+  --success: #4ade80;
+  --border: #111827;
+  --chip-bg: #020617;
+  --radius-card: 14px;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #0f172a, #020617 55%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px 12px;
+}
+
+.app {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.header h1 {
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+}
+.subtitle {
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* Main layout */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
+.card {
+  background: linear-gradient(135deg, #020617, #020617);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Summary card layout */
+.summary-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.summary-right h2 {
+  margin-bottom: 6px;
+}
+.headline {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.detail {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* Progress ring */
+.progress-ring-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.progress-ring {
+  transform: rotate(-90deg);
+}
+.progress-bg {
+  fill: none;
+  stroke: #020617;
+  stroke-width: 10;
+}
+.progress-fg {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 301.6;
+  stroke-dashoffset: 301.6;
+  transition: stroke-dashoffset 0.25s ease;
+}
+.progress-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.progress-percent {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.progress-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+/* Chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 12px;
+}
+.chip {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid #111827;
+  color: var(--text-dim);
+}
+
+/* Streak */
+.streak-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.streak-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.streak-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Habit list */
+.hint {
+  font-size: 0.84rem;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.habit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.habit-item {
+  background: #020617;
+  border-radius: 10px;
+  border: 1px solid #0b1120;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.habit-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.habit-check {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.habit-name {
+  font-size: 0.98rem;
+}
+.habit-name.done {
+  text-decoration: line-through;
+  color: var(--text-dim);
+}
+
+/* Footer */
+.footer {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+  padding-top: 4px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .summary-card {
+    grid-template-columns: 1fr;
+  }
+  .header h1 {
+    font-size: 1.6rem;
+  }
+}
