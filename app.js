@@ -142,7 +142,11 @@ let habitListEl,
   chipPendingEl,
   currentStreakEl,
   bestStreakEl,
+  motivationTextEl,
+  motivationAuthorEl,
+  motivationNoteEl,
   historyChartEl;
+
 
 
 const CIRCUMFERENCE = 2 * Math.PI * 48; // r=48
