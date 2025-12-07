@@ -210,17 +210,12 @@ body {
 .history-bar-fill {
   width: 100%;
   border-radius: 999px 999px 4px 4px;
-  background: var(--accent-soft);
+  background: var(--accent-soft); /* default, will be overridden from JS */
   position: relative;
   overflow: hidden;
+  transition: height 0.25s ease, background-color 0.25s ease;
 }
-.history-bar-fill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--accent);
-  opacity: 0.9;
-}
+
 
 .history-bar-inner {
   width: 100%;
