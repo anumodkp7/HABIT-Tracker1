@@ -152,6 +152,21 @@ let habitListEl,
 const CIRCUMFERENCE = 2 * Math.PI * 48; // r=48
 
 /* ---------- RENDER HABITS ---------- */
+/* ---------- MOTIVATION (QUOTE + YOUR NOTE) ---------- */
+
+function renderMotivation() {
+  if (!motivationTextEl || !motivationAuthorEl) return;
+
+  const idx = getTodayQuoteIndex();
+  const quote = MOTIVATION_QUOTES[idx];
+
+  motivationTextEl.textContent = quote.text;
+  motivationAuthorEl.textContent = `— ${quote.author}`;
+
+  if (motivationNoteEl) {
+    motivationNoteEl.value = motivationNotes[todayKey] || "";
+  }
+}
 
 function renderHabits() {
   if (!habitListEl) return;
@@ -218,6 +233,28 @@ function computeDayPercent(key) {
     if (dayHabits[h.id]) done++;
   });
   return Math.round((done / total) * 100);
+}
+function getTodayQuoteIndex() {
+  // if we already picked a quote for today, reuse it
+  if (
+    motivationQuoteState &&
+    motivationQuoteState.lastDate === todayKey &&
+    typeof motivationQuoteState.index === "number"
+  ) {
+    return motivationQuoteState.index;
+  }
+
+  // otherwise, move to next quote in list (no repeat until all used)
+  const lastIndex =
+    motivationQuoteState && typeof motivationQuoteState.index === "number"
+      ? motivationQuoteState.index
+      : -1;
+
+  const nextIndex = (lastIndex + 1) % MOTIVATION_QUOTES.length;
+
+  motivationQuoteState = { lastDate: todayKey, index: nextIndex };
+  saveMotivationQuoteState(motivationQuoteState);
+  return nextIndex;
 }
 
 function computeStreaks() {
@@ -410,14 +447,26 @@ function init() {
   chipPendingEl = $("chipPending");
   currentStreakEl = $("currentStreak");
   bestStreakEl = $("bestStreak");
+  motivationTextEl = $("motivationText");
+  motivationAuthorEl = $("motivationAuthor");
+  motivationNoteEl = $("motivationNote");
   historyChartEl = $("historyChart");
 
   if (todayDateEl) {
     todayDateEl.textContent = prettyDate(today);
   }
 
+  renderMotivation();
   renderHabits();
   updateProgressAndStreak();
+
+  if (motivationNoteEl) {
+    motivationNoteEl.addEventListener("input", () => {
+      motivationNotes[todayKey] = motivationNoteEl.value;
+      saveMotivationNotes(motivationNotes);
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
