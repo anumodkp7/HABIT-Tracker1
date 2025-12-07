@@ -67,7 +67,9 @@ let habitListEl,
   chipDoneEl,
   chipPendingEl,
   currentStreakEl,
-  bestStreakEl;
+  bestStreakEl,
+  historyChartEl;
+
 
 const CIRCUMFERENCE = 2 * Math.PI * 48; // r=48
 
@@ -182,6 +184,54 @@ function computeStreaks() {
   return { current, best };
 }
 
+/* ---------- HISTORY CHART (LAST 30 DAYS) ---------- */
+
+function renderHistoryChart() {
+  if (!historyChartEl) return;
+
+  historyChartEl.innerHTML = "";
+
+  const days = 30;
+  const labels = [];
+  const percents = [];
+
+  // Build last 30 days from oldest → newest
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const key = dateKey(d);
+    const pct = computeDayPercent(key);
+
+    // label as "3", "4", "5" (day of month)
+    const dayNum = d.getDate();
+    labels.push(dayNum);
+    percents.push(pct);
+  }
+
+  percents.forEach((pct, index) => {
+    const bar = document.createElement("div");
+    bar.className = "history-bar";
+
+    const fill = document.createElement("div");
+    fill.className = "history-bar-fill";
+    // Height proportional to percentage (0–100)
+    fill.style.height = `${pct}%`;
+
+    const valueLabel = document.createElement("div");
+    valueLabel.className = "history-bar-label-value";
+    valueLabel.textContent = pct > 0 ? `${pct}%` : "";
+
+    const dateLabel = document.createElement("div");
+    dateLabel.className = "history-bar-label-date";
+    dateLabel.textContent = labels[index];
+
+    bar.appendChild(fill);
+    bar.appendChild(valueLabel);
+    bar.appendChild(dateLabel);
+    historyChartEl.appendChild(bar);
+  });
+}
+
 function updateProgressAndStreak() {
   const { total, done, pending, percent } = computeTodayStats();
 
@@ -222,6 +272,7 @@ function updateProgressAndStreak() {
   if (bestStreakEl) {
     bestStreakEl.textContent = `${best} day${best === 1 ? "" : "s"}`;
   }
+   renderHistoryChart();
 }
 
 /* ---------- INIT ---------- */
@@ -239,6 +290,7 @@ function init() {
   chipPendingEl = $("chipPending");
   currentStreakEl = $("currentStreak");
   bestStreakEl = $("bestStreak");
+  historyChartEl = $("historyChart");
 
   if (todayDateEl) {
     todayDateEl.textContent = prettyDate(today);
